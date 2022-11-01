@@ -1,3 +1,2 @@
 # my-firebase-crud
-ffffffffffffffff
-#iiiiiiiiiiiiii
+TAREFAS: terminar INDEX.JS,

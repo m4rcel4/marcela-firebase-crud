@@ -16,12 +16,12 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBb8iZnmzaQJO1FKDkd2s-5G_uZq7l8odU",
-    authDomain: "fir-crud-aula.firebaseapp.com",
-    projectId: "fir-crud-aula",
-    storageBucket: "fir-crud-aula.appspot.com",
-    messagingSenderId: "319725483199",
-    appId: "1:319725483199:web:73fdb61b3ff8fdc488020a"
+    apiKey: "AIzaSyBv5ptWcXtcwJCUzunjSd9rL3KOy4ECDlg",
+    authDomain: "my-firebase-crud-90de9.firebaseapp.com",
+    projectId: "my-firebase-crud-90de9",
+    storageBucket: "my-firebase-crud-90de9.appspot.com",
+    messagingSenderId: "705791231158",
+    appId: "1:705791231158:web:51c5f6b7c2f2b7d0611217"
   // Put you credentials here
  
 };
@@ -41,12 +41,12 @@ export const db = getFirestore();
  */
 
 export const saveLongboard= (shape,truck,rodas, description) =>
-  addDoc(collection(db, "longboard"), { shape,truck,rodas, description });
+  addDoc(collection(db, "longboards"), { shape,truck,rodas, description });
  
 
 
-export const onGetLongboard = (callback) =>
-  onSnapshot(collection(db, "longboard"), callback);
+export const onGetLongboards = (callback) =>
+  onSnapshot(collection(db, "longboards"), callback);
 
  
 
@@ -54,11 +54,11 @@ export const onGetLongboard = (callback) =>
  *
  * @param {string} id Task ID
  */
-export const deleteLongboard= (id) => deleteDoc(doc(db, "longboard", id));
+export const deleteLongboard= (id) => deleteDoc(doc(db, "longboards", id));
 
-export const getLongboard = (id) => getDoc(doc(db, "longboard", id));
+export const getLongboard = (id) => getDoc(doc(db, "longboards", id));
 
 export const updateLongboard = (id, newFields) =>
-  updateDoc(doc(db, "longboard", id), newFields);
+  updateDoc(doc(db, "longboards", id), newFields);
 
-export const getLongboards = () => getDocs(collection(db, "longboard"));
+export const getLongboards = () => getDocs(collection(db, "longboards"));

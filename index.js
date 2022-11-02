@@ -1,6 +1,6 @@
 import {
     onGetLongboards,
-    saveLongboards,
+    saveLongboard,
     deleteLongboard,
     getLongboard,
     updateLongboard,
@@ -8,28 +8,28 @@ import {
   } from "./firebase.js";
   
   const longboardForm = document.getElementById("longboard-form");
-  const longboardContainer = document.getElementById("longboard-container");
+  const longboardsContainer = document.getElementById("longboards-container");
   
   let editStatus = false;
   let id = "";
   
   window.addEventListener("DOMContentLoaded", async (e) => {
-    // const querySnapshot = await getTasks();
+    // const querySnapshot = await getLongboards();
     // querySnapshot.forEach((doc) => {
     //   console.log(doc.data());
     // });
   
-    onGetTasks((querySnapshot) => {
-      longboardContainer.innerHTML = "";
+    onGetLongboards((querySnapshot) => {
+      longboardsContainer.innerHTML = "";
   
       querySnapshot.forEach((doc) => {
         const longboard = doc.data();
   
-        longboardContainer.innerHTML += `
+        longboardsContainer.innerHTML += `
         <div class="card card-body mt-2 border-primary">
-      <h3 class="h5">${longboard.shape}</h3>
-      <h3 class="h5">${longboard.truck}</h3>
-      <h3 class="h5">${longboard.roda}</h3>
+      <h3>${longboard.shape}</h3>
+      <h5>${longboard.truck}</h5>
+      <h5>${longboard.roda}</h5>
 
       <p>${longboard.description}</p>
       <div>
@@ -43,7 +43,7 @@ import {
     </div>`;
       });
   
-      const btnsDelete = longboardContainer.querySelectorAll(".btn-delete");
+      const btnsDelete = longboardsContainer.querySelectorAll(".btn-delete");
       btnsDelete.forEach((btn) =>
         btn.addEventListener("click", async ({ target: { dataset } }) => {
           try {
@@ -54,7 +54,7 @@ import {
         })
       );
   
-      const btnsEdit = longboardContainer.querySelectorAll(".btn-edit");
+      const btnsEdit = longboardsContainer.querySelectorAll(".btn-edit");
       btnsEdit.forEach((btn) => {
         btn.addEventListener("click", async (e) => {
           try {
@@ -78,28 +78,32 @@ import {
     });
   });
   
-  taskForm.addEventListener("submit", async (e) => {
+  longboardForm.addEventListener("submit", async (e) => {
     e.preventDefault();
   
-    const title = taskForm["task-title"];
-    const description = taskForm["task-description"];
+    const shape = longboardForm["longboard-shape"];
+    const truck = longboardForm["longboard-truck"];
+    const roda = longboardForm["longboard-roda"];
+    const description = longboardForm["longboard-description"];
   
     try {
       if (!editStatus) {
-        await saveTask(title.value, description.value);
+        await saveLongboard(shape.value,truck.value,roda.value, description.value);
       } else {
-        await updateTask(id, {
-          title: title.value,
+        await updateLongboard(id, {
+          shape: shape.value,
+          truck: truck.value,
+          roda: roda.value,
           description: description.value,
         });
   
         editStatus = false;
         id = "";
-        taskForm["btn-task-form"].innerText = "Save";
+        longboardForm["btn-longboard-form"].innerText = "Save";
       }
   
-      taskForm.reset();
-      title.focus();
+      longboardForm.reset();
+      shape.focus();
     } catch (error) {
       console.log(error);
     }

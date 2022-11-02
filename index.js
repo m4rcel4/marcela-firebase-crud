@@ -27,10 +27,10 @@ import {
   
         longboardsContainer.innerHTML += `
         <div class="card card-body mt-2 border-primary">
-      <h3>${longboard.shape}</h3>
+        <h3>${longboard.codigo}</h3>
+      <h5>${longboard.shape}</h5>
       <h5>${longboard.truck}</h5>
       <h5>${longboard.roda}</h5>
-
       <p>${longboard.description}</p>
       <div>
         <button class="btn btn-primary btn-delete" data-id="${doc.id}">
@@ -60,6 +60,7 @@ import {
           try {
             const doc = await getLongboard(e.target.dataset.id);
             const longboard = doc.data();
+            longboardForm["longboard-codigo"].value = longboard.codigo;
             longboardForm["longboard-shape"].value = longboard.shape;
             longboardForm["longboard-truck"].value = longboard.truck;
             longboardForm["longboard-roda"].value = longboard.roda;
@@ -80,7 +81,7 @@ import {
   
   longboardForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-  
+    const codigo = longboardForm["longboard-codigo"];
     const shape = longboardForm["longboard-shape"];
     const truck = longboardForm["longboard-truck"];
     const roda = longboardForm["longboard-roda"];
@@ -88,9 +89,10 @@ import {
   
     try {
       if (!editStatus) {
-        await saveLongboard(shape.value,truck.value,roda.value, description.value);
+        await saveLongboard(codigo.value,shape.value,truck.value,roda.value, description.value);
       } else {
         await updateLongboard(id, {
+          codigo: codigo.value,
           shape: shape.value,
           truck: truck.value,
           roda: roda.value,
@@ -103,7 +105,7 @@ import {
       }
   
       longboardForm.reset();
-      shape.focus();
+      codigo.focus();
     } catch (error) {
       console.log(error);
     }

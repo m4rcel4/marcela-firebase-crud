@@ -32,7 +32,7 @@ export const app = initializeApp(firebaseConfig);
 export const db = getFirestore();
 
 /**
- * Save a New Task in Firestore
+ * @param {string} codigo a New Task in Firestore
  * @param {string} shape the title of the Task
  * @param {string} truck 
  * @param {string} rodas title of the Task
@@ -40,8 +40,8 @@ export const db = getFirestore();
  * 
  */
 
-export const saveLongboard= (shape,truck,rodas, description) =>
-  addDoc(collection(db, "longboards"), { shape,truck,rodas, description });
+export const saveLongboard= (codigo,shape,truck,rodas, description) =>
+  addDoc(collection(db, "longboards"), { codigo,shape,truck,rodas, description });
  
 
 

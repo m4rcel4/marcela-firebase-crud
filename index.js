@@ -70,7 +70,7 @@ import {
   
             editStatus = true;
             id = doc.id;
-            longboardForm["btn-longboard-form"].innerText = "Update";
+            longboardForm["btn-longboard-form"].innerText = "Atualizar";
           } catch (error) {
             console.log(error);
           }
